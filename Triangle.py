@@ -26,32 +26,54 @@ def classifyTriangle(a,b,c):
       
       BEWARE: there may be a bug or two in this code
     """
-
-    # require that the input values be >= 0 and <= 200
+    #This verifies that all of the inputs are integers
+    
+    if not(isinstance(a,int) and isinstance(b,int) and isinstance(c,int)):
+        return 'InvalidInput'
+    
+    # This requires that the input values be > 0 and < 200
     if a > 200 or b > 200 or c > 200:
         return 'InvalidInput'
         
-    if a <= 0 or b <= b or c <= 0:
+    if a < 0 or b < b or c < 0:
         return 'InvalidInput'
     
-    # verify that all 3 inputs are integers  
-    # Python's "isinstance(object,type) returns True if the object is of the specified type
-    if not(isinstance(a,int) and isinstance(b,int) and isinstance(c,int)):
-        return 'InvalidInput';
-      
-    # This information was not in the requirements spec but 
-    # is important for correctness
     # the sum of any two sides must be strictly less than the third side
     # of the specified shape is not a triangle
-    if (a >= (b - c)) or (b >= (a - c)) or (c >= (a + b)):
+    if (a >= (b + c)) or (b >= (a + c)) or (c >= (a + b)):
         return 'NotATriangle'
         
     # now we know that we have a valid triangle 
-    if a == b and b == a:
+    if a == b and b == a and a==c:
         return 'Equilateral'
-    elif ((a * 2) + (b * 2)) == (c * 2):
+    elif ((a ** 2) + (b ** 2)) == (c ** 2):
         return 'Right'
-    elif (a != b) and  (b != c) and (a != b):
+    elif (a != b) and  (b != c) and (a != c):
         return 'Scalene'
     else:
-        return 'Isoceles'
+        return 'Isosceles'
+
+## All Issues found in code
+# Should move the checker for our values being integers above the checks of greater than 0 less
+# than 200.
+
+# line 34, the '=' symbols are unnecessary. 
+
+# line 34, the if statement for 'b<=b' will always result in a return
+# of 'InvalidInput'
+
+# line 40, the semicolon after 'InvalidInput' is unnecessary
+
+# line 46, the logic for deciding if the inputs are a triangle is wrong,
+# change the '-' symbols to '+' symbols.
+
+# line 50, the logic for equilateral triangles is wrong,
+# its missing a check for the value of c
+
+# line 52, the logic for right triangle is wrong, instead of multiplying
+# our values by 2 with a single '*' we should write it as 'a ** 2)
+
+# line 54, the logic for scalene triangles is wrong, last check should
+# be 'a!=c'
+    
+# line 57, Isosceles is spelled incorrectly
